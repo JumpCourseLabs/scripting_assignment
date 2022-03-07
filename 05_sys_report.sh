@@ -5,9 +5,9 @@
 greentext="\033[32m"
 bold="\033[1m"
 normal="\033[0m"
-freemem=$(free -m / | grep -E "\/$" | awk '{print $4}')
+freemem=$(free -m | awk ' NR == 2 {print $3}')
 logdate=$(date +"%Y%m%d")
-ipaddress=$(ip a | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
+ipaddress=$(ip a | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | awk 'NR == 1 {print $0}')
 logfile=report_"$logdate".log
 
 echo -e $bold"Quick system report for "$greentext"$HOSTNAME"$normal
